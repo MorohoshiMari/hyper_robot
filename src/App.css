@@ -1,0 +1,234 @@
+/* ===== Board ===== */
+.board-container {
+  position: relative;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(16, 50px);
+  grid-template-rows: repeat(16, 50px);
+  border: 3px solid #9e9e9e;
+  position: relative;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  background: #f5f5f5;
+  border: 0.5px solid #ccc;
+  position: relative;
+  cursor: pointer;
+}
+
+.cell.center-block {
+  cursor: default;
+  transition: background 0.3s;
+  border-color: #555;
+  border-style: solid;
+  border-width: 0;
+}
+.cell.center-block.center-top { border-top-width: 3px; }
+.cell.center-block.center-bottom { border-bottom-width: 3px; }
+.cell.center-block.center-left { border-left-width: 3px; }
+.cell.center-block.center-right { border-right-width: 3px; }
+.cell.center-block.center-red { background: rgba(231, 76, 60, 0.35); }
+.cell.center-block.center-blue { background: rgba(52, 152, 219, 0.35); }
+.cell.center-block.center-yellow { background: rgba(241, 196, 15, 0.35); }
+.cell.center-block.center-green { background: rgba(46, 204, 113, 0.35); }
+
+.cell.destination {
+  background: rgba(255, 235, 59, 0.25);
+  cursor: pointer;
+}
+
+/* 壁 */
+.cell.wall-top {
+  border-top: 3px solid #555;
+}
+.cell.wall-bottom {
+  border-bottom: 3px solid #555;
+}
+.cell.wall-left {
+  border-left: 3px solid #555;
+}
+.cell.wall-right {
+  border-right: 3px solid #555;
+}
+
+/* チップ */
+.chip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.chip.red { background: #e74c3c; }
+.chip.blue { background: #3498db; }
+.chip.yellow { background: #f1c40f; }
+.chip.green { background: #2ecc71; }
+
+/* ロボット（ボード上に絶対配置、アニメーション付き） */
+.robot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 4;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  transition: top 0.15s ease-out, left 0.15s ease-out;
+}
+
+.robot.selected {
+  border: 3px solid #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.robot.red { background: #e74c3c; }
+.robot.blue { background: #3498db; }
+.robot.yellow { background: #f1c40f; }
+.robot.green { background: #2ecc71; }
+
+/* 方向矢印（ロボットの隣接セルに表示） */
+.arrow {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.03);
+}
+.arrow:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.arrow.up::after,
+.arrow.down::after,
+.arrow.left::after,
+.arrow.right::after {
+  content: "";
+  display: block;
+}
+
+.arrow.up::after {
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 14px solid rgba(0, 0, 0, 0.35);
+}
+.arrow.down::after {
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 14px solid rgba(0, 0, 0, 0.35);
+}
+.arrow.left::after {
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 14px solid rgba(0, 0, 0, 0.35);
+}
+.arrow.right::after {
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 14px solid rgba(0, 0, 0, 0.35);
+}
+
+/* ===== Panel ===== */
+.panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.panel h2 {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.move-count {
+  font-size: 2.5rem;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.move-count.cleared-red { color: #e74c3c; }
+.move-count.cleared-blue { color: #3498db; }
+.move-count.cleared-yellow { color: #f1c40f; }
+.move-count.cleared-green { color: #2ecc71; }
+
+.panel button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #5c6bc0;
+  color: #fff;
+  transition: background 0.2s;
+}
+
+.panel button:hover {
+  background: #3f51b5;
+}
+
+.problem-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.problem-nav button {
+  width: auto;
+  padding: 8px 14px;
+  font-size: 1.2rem;
+}
+
+.problem-name {
+  font-size: 1rem;
+  min-width: 60px;
+  text-align: center;
+}
+
+.cleared-message {
+  color: #e65100;
+  font-size: 1.3rem;
+  font-weight: bold;
+  animation: pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.7; }
+  to { opacity: 1; }
+}
+
+.target-color {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.target-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.target-indicator.red { background: #e74c3c; }
+.target-indicator.blue { background: #3498db; }
+.target-indicator.yellow { background: #f1c40f; }
+.target-indicator.green { background: #2ecc71; }
