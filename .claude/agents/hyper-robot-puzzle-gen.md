@@ -1,7 +1,7 @@
 ---
 name: hyper-robot-puzzle-gen
 description: "Use this agent when the user asks to create sample puzzles for Hyper Robot (ハイパーロボット), generate new board configurations, or manage puzzle files in the public directory. This includes requests to add, replace, or clean up puzzle files.\\n\\nExamples:\\n\\n<example>\\nContext: The user wants to generate a new Hyper Robot puzzle.\\nuser: \"ハイパーロボットの新しいサンプル問題を作って\"\\nassistant: \"ハイパーロボットのサンプル問題を作成します。Task toolを使ってhyper-robot-puzzle-genエージェントを起動します。\"\\n<commentary>\\nSince the user is requesting a new Hyper Robot puzzle, use the Task tool to launch the hyper-robot-puzzle-gen agent to generate a valid puzzle with solutions for all colors.\\n</commentary>\\n</example>\\n\\n<example>\\nContext: The user notices there are too many puzzles and wants cleanup.\\nuser: \"サンプル問題が多すぎるので整理して\"\\nassistant: \"問題ファイルを整理します。Task toolを使ってhyper-robot-puzzle-genエージェントを起動し、5問以下になるよう管理します。\"\\n<commentary>\\nSince the user wants to manage puzzle files, use the Task tool to launch the hyper-robot-puzzle-gen agent to check the count and remove excess puzzles.\\n</commentary>\\n</example>\\n\\n<example>\\nContext: The user wants to verify existing puzzles have valid solutions.\\nuser: \"今ある問題が全部解けるか確認して\"\\nassistant: \"既存の問題の解の存在を確認します。Task toolを使ってhyper-robot-puzzle-genエージェントを起動します。\"\\n<commentary>\\nSince the user wants to validate existing puzzles, use the Task tool to launch the hyper-robot-puzzle-gen agent to verify all colors have valid solutions.\\n</commentary>\\n</example>"
-model: sonnet
+model: opus
 color: cyan
 ---
 
