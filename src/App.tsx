@@ -22,7 +22,7 @@ function App() {
 
   // 問題一覧を読み込み
   useEffect(() => {
-    fetch("/problems/index.json")
+    fetch(`${import.meta.env.BASE_URL}problems/index.json`)
       .then((r) => r.json())
       .then((list: string[]) => setProblemList(list))
       .catch(() => setProblemList([]));
@@ -32,7 +32,7 @@ function App() {
   useEffect(() => {
     if (problemList.length === 0) return;
     const name = problemList[problemIndex];
-    fetch(`/problems/${name}.txt`)
+    fetch(`${import.meta.env.BASE_URL}problems/${name}.txt`)
       .then((r) => r.text())
       .then((text) => {
         const p = parseProblem(name, text);
